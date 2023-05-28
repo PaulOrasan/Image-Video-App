@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>Main</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
 </head>
 <body>
     You are in, {{data}}
+    <div class="image-list">
+        {% for image_src in images %}
+            <img src="{{ image_src }}" alt="Image">
+        {% endfor %}
+    </div>
 </body>
 </html>
