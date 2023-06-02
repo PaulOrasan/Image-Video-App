@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+<!--    <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />-->
+<!--    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>-->
+<!--    <py-env>-->
+<!--        - matplotlib-->
+<!--    </py-env>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+    <button id="genbut" type="button" pys-onClick="do_plot">Generate graphic!</button>
+    <div id="matplotlib-lineplot"></div>
+<!--    <py-script>-->
+<!--        # Python Code-->
+
+<!--        # importing the matplotlib library-->
+<!--        import matplotlib.pyplot as plt-->
+<!--        def do_plot(*args):-->
+<!--            print('args', *args)-->
+<!--            fig, ax = plt.subplots()-->
+<!--            # x axis-->
+<!--            x = ["Python", "C++", "JavaScript", "Golang"]-->
+<!--            # y axis-->
+<!--            y = [10, 5, 9, 7]-->
+<!--            plt.plot(x, y, marker='o', linestyle='-', color='b')-->
+<!--            # Naming the x-label-->
+<!--            plt.xlabel('Language')-->
+<!--            # Naming the y-label-->
+<!--            plt.ylabel('Score')-->
+<!--            # Naming the title of the plot-->
+<!--            plt.title('Language vs Score')-->
+<!--            pyscript.write("matplotlib-lineplot", fig)-->
+<!--    </py-script>-->
+<!--<table>-->
+<!--        <thead>-->
+<!--            <tr>-->
+<!--                <th>Email</th>-->
+<!--                <th>Authorization</th>-->
+<!--                <th>Time of Registration</th>-->
+<!--            </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--            {% for user in users %}-->
+<!--            <tr>-->
+<!--                <td>{{ user.email }}</td>-->
+<!--                <td>-->
+<!--                    <label class="checkbox-label">-->
+<!--                        <input type="checkbox" id="{{ user.email }}" {% if user.authorization %}checked{% endif %}>-->
+<!--                    </label>-->
+<!--                </td>-->
+<!--                <td>{{ user.registration_time }}</td>-->
+<!--            </tr>-->
+<!--            {% endfor %}-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--    <script>-->
+<!--        var checkboxes = document.querySelectorAll('input[type="checkbox"]');-->
+<!--        checkboxes.forEach(function(checkbox) {-->
+<!--            checkbox.addEventListener('change', function() {-->
+<!--                var userId = checkbox.getAttribute('id');-->
+<!--                var authorization = checkbox.checked;-->
+
+<!--                // Send an AJAX request to update the authorization status for the user with the given userId-->
+<!--                // Example AJAX request using Fetch API:-->
+<!--                fetch('/update_authorization', {-->
+<!--                    method: 'POST',-->
+<!--                    headers: {-->
+<!--                        'Content-Type': 'application/json',-->
+<!--                    },-->
+<!--                    body: JSON.stringify({-->
+<!--                        user_id: userId,-->
+<!--                        authorization: authorization,-->
+<!--                    }),-->
+<!--                })-->
+<!--                .then(function(response) {-->
+<!--                    // Handle the response if needed-->
+<!--                })-->
+<!--                .catch(function(error) {-->
+<!--                    console.error('Error:', error);-->
+<!--                });-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+<div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Authorization</th>
+                    <th>Time of Registration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" pys-onClick="do_plot" id="{{ user.email }}" {% if user.authorization %}checked{% endif %}>
+                            <label class="form-check-label" for="{{ user.email }}"></label>
+                        </div>
+                    </td>
+                    <td>{{ user.registration_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script>
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                var userId = checkbox.getAttribute('id');
+                var authorization = checkbox.checked;
+
+                // Send an AJAX request to update the authorization status for the user with the given userId
+                // Example AJAX request using Fetch API:
+                fetch('/admin/authorizations', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: userId,
+                        authorization: authorization,
+                    }),
+                })
+                .then(function(response) {
+                    // Handle the response if needed
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
