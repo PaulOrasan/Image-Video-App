@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from entity_model import Base, User
+from entity_model import Base, User, MediaResource, Prediction
 
 engine = create_engine('mysql+pymysql://root:paulorasan@localhost/demo')
 Session = sessionmaker(bind=engine)
@@ -26,5 +26,33 @@ class UserRepository:
         self.session.commit()
 
 
-repo = UserRepository()
-print(repo.get_user_by_email('abba'))
+class MediaResourceRepository:
+
+    def __init__(self):
+        self.session = Session()
+
+    def add_resource(self, resource: MediaResource):
+        self.session.add(resource)
+        self.session.commit()
+
+    def get_resource_by_file_name(self, path):
+        return self.session.query(MediaResource).filter(MediaResource.file_name == path).first()
+
+    def find_resource(self, id):
+        return self.session.query(MediaResource).filter(MediaResource.id == id).first()
+
+
+
+class PredictionRepository:
+
+    def __init__(self):
+        self.session = Session()
+
+    def add_prediction(self, pred: Prediction):
+        self.session.add(pred)
+        self.session.commit()
+
+    def find_predictions_by_user(self, user_id):
+        return self.session.query(Prediction).filter(Prediction.user_id == user_id).all()
+
+

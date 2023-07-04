@@ -1,6 +1,6 @@
 from entity_model import User
 from repository_persistence import UserRepository
-
+from passlib.hash import sha256_crypt
 
 class UserService:
 
@@ -9,7 +9,7 @@ class UserService:
 
     def check_user_credentials(self, email, password):
         user = self.find_user_by_email(email)
-        return user is not None and user.password == password
+        return user is not None and sha256_crypt.verify(password, user.password)
 
     def register_new_user(self, email, password):
         user = self.find_user_by_email(email)

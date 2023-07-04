@@ -11,11 +11,11 @@ def image_classifier(inp):
     return {'non-fire': float(output[0][0]), 'fire': float(output[0][1])}
 
 
-def my_auth(request:gr.Request):
-    if request:
-        print("Request headers dictionary:", request.headers)
-        print("IP address:", request.client.host)
-        print("Username:", request.username)
+def my_auth(username, password):
+    # if request:
+    #     print("Request headers dictionary:", request.headers)
+    #     print("IP address:", request.client.host)
+    #     print("Username:", request.username)
     return True
     # response = requests.post(f'http://localhost:5000/login', json={'username': username, 'password': password})
     # return response.status_code == 200

@@ -23,7 +23,8 @@ def main_page():
 
 @app.route('/gradio', methods=['GET'])
 def get_inference():
-    return render_template('gradio.html')
+    response = make_response(render_template('gradio.html'))
+    return response
 
 
 @app.route('/login', methods=['POST', 'GET'])
