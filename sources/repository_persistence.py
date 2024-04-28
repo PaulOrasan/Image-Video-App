@@ -36,11 +36,7 @@ class MediaResourceRepository:
         self.session.commit()
 
     def get_resource_by_file_name(self, path):
-        return self.session.query(MediaResource).filter(MediaResource.file_name == path).first()
-
-    def find_resource(self, id):
-        return self.session.query(MediaResource).filter(MediaResource.id == id).first()
-
+        return self.session.query(User).filter(MediaResource.file_name == path).first()
 
 
 class PredictionRepository:
@@ -54,8 +50,5 @@ class PredictionRepository:
 
     def find_predictions_by_user(self, user_id):
         return self.session.query(Prediction).filter(Prediction.user_id == user_id).all()
-
-    def find_predictions_by_day(self, day):
-        return list(filter(lambda x: day in str(x.request_time), self.session.query(Prediction).all()))
 
 

@@ -1,0 +1,13 @@
+images
+static
+files
+Anexe
+.idea
+__pycache__
+templates
+videos
+old
+*.scss
+*.log
+*.zip
+sources/fonts

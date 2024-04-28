@@ -1,13 +1,10 @@
 import gradio as gr
 import pandas as pd
 import numpy as np
-import requests
-
-from ui_fast_utils import get_authorization_header, BACKEND_URL
 
 simple = pd.DataFrame({
     'Date': pd.date_range(start='2023-01-01', periods=9, freq='D').strftime("%d"),
-    'Total number of inferences': np.interp([28, 55, 43, 91, 81, 53, 19, 87, 52], [19, 91], [5, 20])
+    'Average number of inferences': np.interp([28, 55, 43, 91, 81, 53, 19, 87, 52], [19, 91], [5, 20])
 })
 
 
@@ -34,25 +31,17 @@ simple2 = pd.DataFrame({
     'Number': seq1 + seq2,
     'Data description': ["Number of requests in queue"] * 100 + ["Number of seconds per one inference"] * 100
 })
-
-def find_reports(request: gr.Request):
-    header = get_authorization_header(request)
-    data = requests.get(f'{BACKEND_URL}/reports/total', headers=header)
-    data2 = requests.get(f'{BACKEND_URL}/reports/daily', headers=header)
-    return pd.DataFrame.from_dict({'Date': data.json().keys(), 'Total number of inferences': data.json().values()}),\
-        pd.DataFrame.from_dict({'Daily number of predictions': [e[0] for e in data2.json()], 'Total number of predictions': [e[0] for e in data2.json()]}),
-
 def create_demo():
-    with gr.TabItem(id=0, label='Maintenance Status') as demo:
+    with gr.Blocks() as demo:
 
-        button = gr.Button("Generate Report!", variant='primary')
+        gr.Button("Generate Report!", variant='primary')
         with gr.Row():
-            barplot = gr.BarPlot(
+            gr.BarPlot(
                 simple,
                 x="Date",
-                y="Total number of inferences",
-                title="Total number of inference requests per day",
-                tooltip=['Date', 'Total number of inferences'],
+                y="Average number of inferences",
+                title="Average number of inference requests per day",
+                tooltip=['Date', 'Average number of inferences'],
                 y_lim=[0, 25],
                 height=512,
                 width=512,
@@ -68,15 +57,15 @@ def create_demo():
                 height=512,
                 width=512,
             )
-        scaplot = gr.ScatterPlot(
+        gr.ScatterPlot(
             simple5,
             x="Total number of predictions",
             y="Daily number of predictions",
             title="Daily activity in relation to total activity",
             tooltip=['Total number of predictions', 'Daily number of predictions'],
+            y_lim=[-1, 11],
             height=512,
             width=512
         )
-        button.click(find_reports, inputs=[], outputs=[barplot, scaplot])
 
     return demo

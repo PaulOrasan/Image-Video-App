@@ -23,6 +23,3 @@ class PredictionService:
 
     def find_predictions(self, user_id):
         return self.repo.find_predictions_by_user(user_id)
-
-    def find_predictions_by_day(self, day):
-        return self.repo.find_predictions_by_day(day)

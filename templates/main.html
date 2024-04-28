@@ -2,15 +2,16 @@
 <html>
 <head>
     <title>Main</title>
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', path='styles/main.css') }}">
 </head>
 <body>
-    You are in, {{data}}
+    You are in, {{ data }}
     <div class="image-list">
         {% for image_src in images %}
             <img src="{{ image_src }}" alt="Image">
         {% endfor %}
     </div>
     <button onclick="location.href='gradio'">Press me</button>
+    <button onclick="location.href='history'">Press me</button>
 </body>
 </html>

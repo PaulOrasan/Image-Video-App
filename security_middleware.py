@@ -25,6 +25,6 @@ class MyMiddleware:
         #     request.query_params = QueryParams({'__theme': 'dark'})
         # process the request and get the response
         response = await call_next(request)
-        if response.status_code == NOT_FOUND:
-            return redirect_to_page_with_cookie('/login', value='', expires=0)
+        # if response.status_code == NOT_FOUND:
+        #     return redirect_to_page_with_cookie('/login', value='', expires=0)
         return response

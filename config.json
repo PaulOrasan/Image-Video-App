@@ -1,0 +1,7 @@
+{
+  "JWT_SECRET_KEY": "secret_key",
+  "ADMIN_EMAIL": "admin",
+  "MODEL_CLIENT_URL": "http://127.0.0.1:7423",
+  "EMAIL": "picamrr@gmail.com",
+  "PASSWORD": "qrkoubzjvmfulsfc"
+}
